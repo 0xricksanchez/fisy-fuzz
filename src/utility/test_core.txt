@@ -1,0 +1,1740 @@
+ dumped core - see /var/crash/vmcore.0
+
+Sat Mar 16 04:01:57 CET 2019
+
+FreeBSD  12.0-RELEASE FreeBSD 12.0-RELEASE GENERIC  amd64
+
+panic: page fault
+
+GNU gdb 6.1.1 [FreeBSD]
+Copyright 2004 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "amd64-marcel-freebsd"...
+
+Unread portion of the kernel message buffer:
+
+
+Fatal trap 12: page fault while in kernel mode
+cpuid = 1; apic id = 01
+fault virtual address	= 0xfffff7fe9a87894c
+fault code		= supervisor write data, page not present
+instruction pointer	= 0x20:0xffffffff8282e56c
+stack pointer	        = 0x28:0xfffffe001b81d5d0
+frame pointer	        = 0x28:0xfffffe001b81d630
+code segment		= base 0x0, limit 0xfffff, type 0x1b
+			= DPL 0, pres 1, long 1, def32 0, gran 1
+processor eflags	= interrupt enabled, resume, IOPL = 0
+current process		= 1946 (cp)
+trap number		= 12
+panic: page fault
+cpuid = 1
+time = 1552705261
+KDB: stack backtrace:
+db_trace_self_wrapper() at db_trace_self_wrapper+0x2b/frame 0xfffffe001b81d280
+vpanic() at vpanic+0x1a3/frame 0xfffffe001b81d2e0
+panic() at panic+0x43/frame 0xfffffe001b81d340
+trap_fatal() at trap_fatal+0x35f/frame 0xfffffe001b81d390
+trap_pfault() at trap_pfault+0x49/frame 0xfffffe001b81d3f0
+trap() at trap+0x2ba/frame 0xfffffe001b81d500
+calltrap() at calltrap+0x8/frame 0xfffffe001b81d500
+--- trap 0xc, rip = 0xffffffff8282e56c, rsp = 0xfffffe001b81d5d0, rbp = 0xfffffe001b81d630 ---
+ext2_vget() at ext2_vget+0x2ec/frame 0xfffffe001b81d630
+ext2_valloc() at ext2_valloc+0x501/frame 0xfffffe001b81d6c0
+ext2_mkdir() at ext2_mkdir+0x80/frame 0xfffffe001b81d740
+VOP_MKDIR_APV() at VOP_MKDIR_APV+0x9e/frame 0xfffffe001b81d770
+kern_mkdirat() at kern_mkdirat+0x1be/frame 0xfffffe001b81d980
+amd64_syscall() at amd64_syscall+0x28d/frame 0xfffffe001b81dab0
+fast_syscall_common() at fast_syscall_common+0x101/frame 0xfffffe001b81dab0
+--- syscall (136, FreeBSD ELF64, sys_mkdir), rip = 0x8003fd55a, rsp = 0x7fffffffe6b8, rbp = 0x7fffffffe7f0 ---
+Uptime: 2m5s
+Dumping 157 out of 2009 MB:..11%..21%..31%..41%..51%..62%..72%..82%..92%
+
+Reading symbols from /boot/kernel/intpm.ko...Reading symbols from /usr/lib/debug//boot/kernel/intpm.ko.debug...done.
+done.
+Loaded symbols for /boot/kernel/intpm.ko
+Reading symbols from /boot/kernel/smbus.ko...Reading symbols from /usr/lib/debug//boot/kernel/smbus.ko.debug...done.
+done.
+Loaded symbols for /boot/kernel/smbus.ko
+Reading symbols from /boot/kernel/ext2fs.ko...Reading symbols from /usr/lib/debug//boot/kernel/ext2fs.ko.debug...done.
+done.
+Loaded symbols for /boot/kernel/ext2fs.ko
+#0  doadump (textdump=1) at pcpu.h:230
+230	pcpu.h: No such file or directory.
+	in pcpu.h
+(kgdb) #0  doadump (textdump=1) at pcpu.h:230
+#1  0xffffffff80b79b60 in kern_reboot (howto=260)
+    at /usr/src/sys/kern/kern_shutdown.c:446
+#2  0xffffffff80b79fb3 in vpanic (fmt=<value optimized out>,
+    ap=<value optimized out>) at /usr/src/sys/kern/kern_shutdown.c:872
+#3  0xffffffff80b79d13 in panic (fmt=<value optimized out>)
+    at /usr/src/sys/kern/kern_shutdown.c:799
+#4  0xffffffff8104c18f in trap_fatal (frame=0xfffffe001b81d510,
+    eva=18446735271619168588) at /usr/src/sys/amd64/amd64/trap.c:929
+#5  0xffffffff8104c1e9 in trap_pfault (frame=0xfffffe001b81d510, usermode=0)
+    at pcpu.h:230
+#6  0xffffffff8104b82a in trap (frame=0xfffffe001b81d510)
+    at /usr/src/sys/amd64/amd64/trap.c:441
+#7  0xffffffff810265c5 in calltrap ()
+    at /usr/src/sys/amd64/amd64/exception.S:232
+#8  0xffffffff8282e56c in ext2_vget (mp=0xfffff8002f9e9000, ino=1933,
+    flags=<value optimized out>, vpp=0xfffffe001b81d6f0)
+    at /usr/src/sys/fs/ext2fs/ext2_vfsops.c:1062
+#9  0xffffffff8281efc1 in ext2_valloc (pvp=0xfffff8002f57d1e0,
+    mode=<value optimized out>, cred=0xfffff8002f232100,
+    vpp=0xfffffe001b81d6f0) at /usr/src/sys/fs/ext2fs/ext2_alloc.c:410
+#10 0xffffffff82830f70 in ext2_mkdir (ap=0xfffffe001b81d910)
+    at /usr/src/sys/fs/ext2fs/ext2_vnops.c:1315
+#11 0xffffffff811d3d6e in VOP_MKDIR_APV (vop=0xffffffff82833838,
+    a=0xfffffe001b81d910) at vnode_if.c:1610
+#12 0xffffffff80c5518e in kern_mkdirat (td=0xfffff8002f9e5580, fd=-100,
+    path=0x206030 <Address 0x206030 out of bounds>, segflg=UIO_USERSPACE,
+    mode=16877) at vnode_if.h:665
+#13 0xffffffff8104cbcd in amd64_syscall (td=0xfffff8002f9e5580, traced=0)
+    at subr_syscall.c:135
+#14 0xffffffff81026ead in fast_syscall_common ()
+    at /usr/src/sys/amd64/amd64/exception.S:504
+#15 0x00000008003fd55a in ?? ()
+Previous frame inner to this frame (corrupt stack?)
+Current language:  auto; currently minimal
+(kgdb)
+
+------------------------------------------------------------------------
+ps -axlww
+
+UID  PID PPID CPU PRI NI   VSZ   RSS MWCHAN   STAT TT     TIME COMMAND
+  0    0    0   0 -16  0     0     0 swapin   DLs   -  0:00.02 [kernel]
+  0    1    0   0  20  0  9952  1000 wait     DLs   -  0:00.01 [init]
+  0    2    0   0 -16  0     0     0 crypto_w DL    -  0:00.00 [crypto]
+  0    3    0   0 -16  0     0     0 crypto_r DL    -  0:00.00 [crypto returns 0]
+  0    4    0   0 -16  0     0     0 crypto_r DL    -  0:00.00 [crypto returns 1]
+  0    5    0   0 -16  0     0     0 -        RL    -  0:00.18 [cam]
+  0    6    0   0 -16  0     0     0 -        DL    -  0:00.00 [soaiod1]
+  0    7    0   0 -16  0     0     0 -        DL    -  0:00.00 [soaiod2]
+  0    8    0   0 -16  0     0     0 -        DL    -  0:00.00 [soaiod3]
+  0    9    0   0 -16  0     0     0 -        DL    -  0:00.00 [soaiod4]
+  0   10    0   0 -16  0     0     0 audit_wo DL    -  0:00.00 [audit]
+  0   11    0   0 155  0     0     0 -        RL    -  0:18.34 [idle]
+  0   12    0   0 -52  0     0     0 -        WL    -  0:00.38 [intr]
+  0   13    0   0  -8  0     0     0 -        DL    -  0:00.04 [geom]
+  0   14    0   0 -16  0     0     0 seqstate DL    -  0:00.00 [sequencer 00]
+  0   15    0   0 -68  0     0     0 -        DL    -  0:00.00 [usb]
+  0   16    0   0 -16  0     0     0 waiting_ DL    -  0:00.00 [sctp_iterator]
+  0   17    0   0 -16  0     0     0 -        DL    -  0:00.00 [rand_harvestq]
+  0   18    0   0 -16  0     0     0 psleep   DL    -  0:00.01 [pagedaemon]
+  0   19    0   0 -16  0     0     0 psleep   DL    -  0:00.00 [vmdaemon]
+  0   20    0   0 -16  0     0     0 qsleep   DL    -  0:00.01 [bufdaemon]
+  0   21    0   0 -16  0     0     0 vlruwt   DL    -  0:00.00 [vnlru]
+  0   22    0   0  16  0     0     0 syncer   DL    -  0:00.00 [syncer]
+  0  355    1   0  52  0 11352  2588 select   Ds    -  0:00.00 [dhclient]
+  0  358    1   0  52  0 11572  2720 select   Ds    -  0:00.00 [dhclient]
+ 65  405    1   0  52  0 11740  2840 select   DCs   -  0:00.00 [dhclient]
+  0  406    1   0  20  0 10480  1432 select   Ds    -  0:00.00 [devd]
+  0  549    1   0  20  0 11372  2636 select   Ds    -  0:00.01 [syslogd]
+  0  731    1   0  20  0 19580  7896 select   Ds    -  0:00.00 [sshd]
+  0  734    1   0  20  0 16916  6928 select   Ds    -  0:00.00 [sendmail]
+ 25  737    1   0  52  0 16616  6684 pause    Ds    -  0:00.00 [sendmail]
+  0  741    1   0  20  0 11384  2604 nanslp   Ds    -  0:00.00 [cron]
+  0  791    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  792    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  793    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  794    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  795    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  796    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  797    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  798    1   0  52  0 10848  2248 ttyin    Ds+   -  0:00.00 [getty]
+  0  801  731   0  52  0 25184 13804 select   Ds    -  0:00.00 [sshd]
+  0 1832    0   0  -8  0     0     0 mdwait   DL    -  0:00.00 [md0]
+  0 1944  801   0  52  0 12200  3264 pause    Ds+   -  0:00.01 [csh]
+  0 1946 1944   0  72  0 11844  2156 -        R+    -  0:00.00 [cp]
+
+------------------------------------------------------------------------
+vmstat -s
+
+   289456 cpu context switches
+    65626 device interrupts
+     2366 software interrupts
+   755792 traps
+  1315463 system calls
+       28 kernel threads created
+     1696  fork() calls
+      220 vfork() calls
+        2 rfork() calls
+        0 swap pager pageins
+        0 swap pager pages paged in
+        0 swap pager pageouts
+        0 swap pager pages paged out
+     1095 vnode pager pageins
+     8278 vnode pager pages paged in
+        0 vnode pager pageouts
+        0 vnode pager pages paged out
+        0 page daemon wakeups
+        0 pages examined by the page daemon
+        0 clean page reclamation shortfalls
+        0 pages reactivated by the page daemon
+   133698 copy-on-write faults
+       27 copy-on-write optimized faults
+   605321 zero fill pages zeroed
+        0 zero fill pages prezeroed
+       15 intransit blocking page faults
+   799926 total VM faults taken
+      950 page faults requiring I/O
+        0 pages affected by kernel thread creation
+   104654 pages affected by  fork()
+     7911 pages affected by vfork()
+      114 pages affected by rfork()
+   882958 pages freed
+        0 pages freed by daemon
+        0 pages freed by exiting processes
+        0 pages active
+        0 pages inactive
+        0 pages in the laundry queue
+        0 pages wired down
+        0 pages free
+        0 bytes per page
+        0 total name lookups
+          cache hits (0% pos + 0% neg) system 0% per-directory
+          deletions 0%, falsehits 0%, toolong 0%
+
+------------------------------------------------------------------------
+vmstat -m
+
+         Type InUse MemUse HighUse Requests  Size(s)
+      CAM DEV     5    20K       -       11  4096
+      CAM CCB     0     0K       -     8207  4096
+     CAM path     7     4K       -       46  512
+   CAM periph     6     3K       -       69  512,1024
+       feeder     7     4K       -        7  512
+CAM I/O Scheduler     1     1K       -        1  512
+    CAM queue     8    12K       -       28  512,2048
+         UART     3     5K       -        3  512,2048
+      scsi_cd     0     0K       -        6  512
+          USB    24    44K       -       24  512,1024,8192
+       USBdev    20    10K       -       20  512
+CAM dev queue     3     2K       -        3  512
+      ata_pci     1     1K       -        1  512
+        vtbuf    24  2064K       -       46  8192
+           vt    11    11K       -       11  1024
+       DEVFS3   111    56K       -     1529  512
+       DEVFS1    91    91K       -      455  1024
+   DEVFS_RULE    56    54K       -       56  512,1024
+        DEVFS    14     7K       -       15  512
+       DEVFSP     2     1K       -        2  512
+NFSD V4client     1     1K       -        1  512
+ NFSD lckfile     1     1K       -        1  512
+ NFSD session     1     2K       -        1  2048
+    pfs_nodes    20    10K       -       20  512
+         GEOM    69    39K       -     1194  512,1024,2048,4096,8192,16384,32768
+    raid_data     0     0K       -      162  512
+       isadev     7     4K       -        7  512
+  ddb_capture     1    64K       -        1  65536
+         cdev     4     2K       -        4  512
+     filedesc     1     8K       -        1  8192
+        sigio     0     0K       -        1  512
+     filecaps     1     1K       -       65  512
+      kdtrace   147   125K       -     3953  512,1024
+         kenv    90    61K       -       94  512,16384
+       kqueue    44    22K       -     1947  512
+    proc-args    37    19K       -     1947  512
+        hhook    13     7K       -       13  512
+      ithread    69    35K       -       69  512
+       prison     4     2K       -        4  512
+       KTRACE   100    50K       -      100  512
+       linker   219   282K       -      239  512,1024,2048,4096,8192,16384,65536
+        lockf    24    12K       -     3214  512
+   loginclass     3     2K       -       11  512
+       devbuf  1826  1670K       -     2151  512,1024,2048,4096,8192,16384,65536
+         temp    17    40K       -     4904  512,1024,2048,4096,8192,16384
+       module   504   252K       -      505  512
+     mtx_pool     2    32K       -        2  16384
+          osd     3     2K       -        9  512
+     pmchooks     1     1K       -        1  512
+          pmc     1     1K       -        1  512
+         pgrp    20    10K       -      403  512
+      session    20    10K       -      403  512
+         proc     2    32K       -        2  16384
+      subproc   117   425K       -     2020  1024,8192
+         cred    41    21K       -     7338  512
+     acpiintr     1     1K       -        1  512
+       plimit    17    17K       -     5705  1024
+      uidinfo     5    10K       -        7  512,8192
+       dumper     1     2K       -        1  2048
+       sysctl     0     0K       -        1  512
+    sysctloid  2675  1338K       -     2753  512
+    sysctltmp     0     0K       -     4785  512,1024,4096
+       acpica   815   424K       -    48871  512,1024,2048,4096,16384
+      tidhash     1    32K       -        1  32768
+      callout     3  1692K       -        3
+         umtx   272   136K       -      272  512
+     p1003.1b     1     1K       -        1  512
+         SWAP     1    76K       -        1
+          bus  1051   526K       -     5935  512,4096,8192
+       bus-sc    38   300K       -     2039  512,1024,2048,4096,8192,16384,32768,65536
+     acpitask     1    64K       -        1  65536
+      devstat     6    50K       -        6  512,16384
+        epoch     4     2K       -        4  512
+ eventhandler   123    62K       -      123  512
+   gtaskqueue    22    73K       -       22  512,16384
+         kobj   342  2736K       -      639  8192
+      Per-cpu     1     1K       -        1  512
+       kbdmux     6    28K       -        6  512,1024,2048,4096,16384
+         rman   100    50K       -      395  512
+         sbuf     0     0K       -     1170  512,1024,2048,4096,8192,16384,32768
+    toponodes    10     5K       -       10  512
+    taskqueue    30    15K       -       30  512
+     terminal    11     6K       -       11  512
+       Unitno    23    12K       -     2413  512
+         vmem     3    32K       -        4  4096,8192,16384
+     ioctlops     0     0K       -       87  512,1024,2048,4096
+       select    27    14K       -       27  512
+          iov     0     0K       -   171214  512,1024
+          msg     4    68K       -        4  4096,16384,32768
+          sem     4   120K       -        4  4096,8192
+          shm     1    32K       -        1  32768
+          tty    14    28K       -      364  2048
+          pts     1     1K       -      351  512
+     mbuf_tag     0     0K       -       16  512
+        shmfd     1    16K       -        1  16384
+       soname     4     2K       -    12286  512
+          pcb    22   620K       -       75  512,4096,8192,16384
+          acl     0     0K       -        5  16384
+     vfscache     4  1081K       -        4  1024,16384,32768
+   cl_savebuf     0     0K       -       83  512,2048
+     vfs_hash     1   520K       -        1
+       vnodes     1     1K       -        1  1024
+        mount    29    16K       -      198  512,1024
+       statfs     0     0K       -     5546  8192
+      md_disk     1     8K       -        6  8192
+  vnodemarker     0     0K       -       33  1024
+chacha20random     1     1K       -        1  1024
+          BPF    10    68K       -       10  512,1024,16384
+        ifnet     3     9K       -        3  512,4096
+       ifaddr    36    45K       -       36  512,1024,8192,16384
+  ether_multi    13     7K       -       18  512
+        clone     7     4K       -        7  512
+        ipsec     1     1K       -        1  1024
+      lltable    10     8K       -       10  512,1024
+        iflib    14   120K       -       18  512,2048,4096,8192,16384,32768
+     routetbl    25    14K       -       29  512,1024
+         vnet     1     1K       -        1  512
+    vnet_data     1   248K       -        1
+vnet_data_free     1     1K       -        1  512
+         igmp     2     1K       -        2  512
+     in_multi     2     1K       -        3  512
+encap_export_host     8     4K       -        8  512
+    sctp_a_it     0     0K       -        2  512
+     sctp_vrf     1     1K       -        1  512
+     sctp_ifa     4     2K       -        4  512
+     sctp_ifn     2     1K       -        2  512
+    sctp_iter     0     0K       -        2  512
+   tfo_ccache     1   136K       -        1
+    hostcache     1    64K       -        1  65536
+          LRO     2    48K       -        2  16384,32768
+      tcpfunc     1     1K       -        1  512
+     syncache     1    76K       -        1
+    in6_multi     9     5K       -        9  512
+          mld     2     1K       -        2  512
+       ip6ndp     3     2K       -        3  512
+  inpcbpolicy     7     4K       -      158  512
+     secasvar     1     4K       -        1  4096
+       sahead     1     4K       -        1  4096
+  ipsecpolicy     2     5K       -        2  512,4096
+    ipsec-saq     2     8K       -        2  4096
+       crypto     2     3K       -        2  512,2048
+          rpc     2    16K       -        2  8192
+audit_evclass   230   115K       -      285  512
+      pagedep     8   140K       -       36  512
+     inodedep    13   532K       -      109  1024
+    bmsafemap     4    18K       -       72  512,16384
+       newblk   485  1274K       -     7207  512
+     indirdep     1     1K       -       10  512
+     freefrag     0     0K       -       36  512
+     freeblks     4     2K       -       39  512
+     freefile     1     1K       -       45  512
+       diradd     8     4K       -       56  512
+        mkdir     3     2K       -       32  512
+       dirrem     0     0K       -       48  512
+    newdirblk     2     1K       -       16  512
+     freework    22    11K       -      107  512
+      freedep     1     1K       -       52  512
+      jaddref     0     0K       -       88  512
+      jremref     0     0K       -       66  512
+      jnewblk     0     0K       -     7206  512
+    jfreefrag     0     0K       -       36  512
+         jseg    25    13K       -       37  512
+      jsegdep   498   249K       -     7396  512
+        sbdep     0     0K       -        7  512
+     savedino     0     0K       -       44  1024
+      jblocks     2     1K       -        2  512
+      softdep     1     1K       -        1  1024
+  ufs_dirhash    63    42K       -       63  512,1024
+    ufs_quota     1   520K       -        1
+    ufs_mount     3    33K       -        5  1024,16384
+    vm_pgdata     1     1K       -        1  512
+      UMAHash     4    24K       -        9  2048,4096,8192,16384
+      memdesc     1     8K       -        1  8192
+     pci_link    10     5K       -       10  512
+     atkbddev     2     1K       -        2  512
+      acpisem    23    12K       -       23  512
+      acpidev    22    11K       -       22  512
+      CAM SIM     3     2K       -        3  512
+       apmdev     1     1K       -        1  512
+   madt_table     0     0K       -        2  512,8192
+         intr     4   408K       -        4  65536
+      io_apic     1     4K       -        1  4096
+   local_apic     1     4K       -        1  4096
+          MCA    10     5K       -       10  512
+         cpus     2     1K       -        2  512
+     nexusdev     5     3K       -        5  512
+      CAM XPT    23    12K       -       89  512,1024,2048,4096
+      entropy     1     1K       -      196  512,16384
+    ext2_node    24    24K       -      110  1024
+   ext2_mount     9    13K       -       54  512,2048,4096
+
+------------------------------------------------------------------------
+vmstat -z
+
+ITEM                   SIZE  LIMIT     USED     FREE      REQ FAIL SLEEP
+
+UMA Kegs:               224,      0,     123,      13,     123,   0,   0
+UMA Zones:              648,      0,     125,       0,     125,   0,   0
+UMA Slabs:              112,      0,    2137,      33,    2308,   0,   0
+UMA Hash:               256,      0,       7,       8,      11,   0,   0
+4 Bucket:                32,      0,      84,     784,   10781,   0,   0
+6 Bucket:                48,      0,      46,     784,    3618,   0,   0
+8 Bucket:                64,      0,      13,     545,     992,  21,   0
+12 Bucket:               96,      0,      12,     398,     800,   0,   0
+16 Bucket:              128,      0,      31,     620,    2441,   1,   0
+32 Bucket:              256,      0,     354,     141,   12693,   4,   0
+64 Bucket:              512,      0,      70,      70,     884,18166,   0
+128 Bucket:            1024,      0,      33,      35,     433,   1,   0
+256 Bucket:            2048,      0,      43,      23,    1231, 881,   0
+vmem:                  1792,      0,       3,       1,       3,   0,   0
+vmem btag:               56,      0,    6188,     415,   10296,  47,   0
+VM OBJECT:              256,      0,    1207,     203,   44937,   0,   0
+RADIX NODE:             144,      0,    4063,    3902,  134544,   0,   0
+MAP:                    232,      0,       3,      65,       3,   0,   0
+KMAP ENTRY:             120,      0,       8,     256,       8,   0,   0
+MAP ENTRY:              120,      0,     842,     544,  193215,   0,   0
+VMSPACE:               2512,      0,      21,      12,    1920,   0,   0
+fakepg:                 104,      0,       0,       0,       0,   0,   0
+64 pcpu:                  8,      0,    2541,     275,    2541,   0,   0
+mt_stats_zone:           64,      0,     426,      86,     426,   0,   0
+mt_zone:                 24,      0,     426,     238,     426,   0,   0
+16:                      16,      0,       0,       0,       0,   0,   0
+32:                      32,      0,       0,       0,       0,   0,   0
+64:                      64,      0,       0,       0,       0,   0,   0
+128:                    128,      0,       0,       0,       0,   0,   0
+256:                    256,      0,       0,       0,       0,   0,   0
+512:                    512,      0,    9650,    8767,  293299,   0,   0
+1024:                  1024,      0,     847,      33,   15772,   0,   0
+2048:                  2048,      0,      48,      12,    2278,   0,   0
+4096:                  4096,      0,      39,      56,    8997,   0,   0
+8192:                  8192,      0,     424,       9,    9011,   0,   0
+16384:                16384,      0,      53,       3,     760,   0,   0
+32768:                32768,      0,       6,       3,     199,   0,   0
+65536:                65536,      0,      11,       0,     219,   0,   0
+SLEEPQUEUE:              88,      0,     137,     142,     137,   0,   0
+Files:                   80,      0,      71,     223,   46666,   0,   0
+filedesc0:             1104,      0,      44,      28,    1947,   0,   0
+TURNSTILE:              136,      0,     137,      63,     137,   0,   0
+rl_entry:                40,      0,      47,     547,      47,   0,   0
+umtx pi:                 96,      0,       0,       0,       0,   0,   0
+umtx_shm:                88,      0,       0,       0,       0,   0,   0
+MAC labels:              40,      0,       0,       0,       0,   0,   0
+PROC:                  1320,      0,      43,      29,    1946,   0,   0
+THREAD:                1400,      0,     127,       9,     127,   0,   0
+cpuset:                 104,      0,       7,     272,       7,   0,   0
+domainset:               40,      0,       0,       0,       0,   0,   0
+audit_record:          1280,      0,       0,       0,       0,   0,   0
+mbuf_packet:            256, 801780,       6,     507,    1446,   0,   0
+mbuf:                   256, 801780,    1068,    1216,  515316,   0,   0
+mbuf_cluster:          2048, 125276,    1530,     512,   70726,   0,   0
+mbuf_jumbo_page:       4096,  62638,       0,     114,   39306,   0,   0
+mbuf_jumbo_9k:         9216,  55677,       0,       0,       0,   0,   0
+mbuf_jumbo_16k:       16384,  41756,       0,       0,       0,   0,   0
+epoch_record pcpu:      256,      0,       4,      60,       4,   0,   0
+g_bio:                  400,      0,       0,     297,   25617,   0,   0
+DMAR_MAP_ENTRY:         120,      0,       0,       0,       0,   0,   0
+ttyinq:                 160,      0,     135,     177,    5520,   0,   0
+FPU_save_area:          832,      0,       0,       0,       0,   0,   0
+ttyoutq:                256,      0,      72,     183,    2944,   0,   0
+nvme_request:           128,      0,       0,       0,       0,   0,   0
+cryptop:                128,      0,       0,       0,       0,   0,   0
+cryptodesc:             120,      0,       0,       0,       0,   0,   0
+crypto_session:          24,      0,       0,       0,       0,   0,   0
+vtnet_tx_hdr:            24,      0,       0,       0,       0,   0,   0
+VNODE:                  480,      0,     783,      33,    1624,   0,   0
+VNODEPOLL:              120,      0,       0,       0,       0,   0,   0
+BUF TRIE:               144,      0,     681,   12846,   12720,   0,   0
+NAMEI:                 1024,      0,       1,      39,  118388,   0,   0
+rentr:                   24,      0,       0,       0,       0,   0,   0
+S VFS Cache:            108,      0,     779,     236,    3180,   0,   0
+STS VFS Cache:          148,      0,       0,       0,       0,   0,   0
+L VFS Cache:            328,      0,      11,      49,      43,   0,   0
+LTS VFS Cache:          368,      0,       0,       0,       0,   0,   0
+DIRHASH:               1024,      0,     116,      16,     116,   0,   0
+NCLNODE:                592,      0,       0,       0,       0,   0,   0
+AIO:                    208,      0,       0,       0,       0,   0,   0
+AIOP:                    32,      0,       0,       0,       0,   0,   0
+AIOCB:                  752,      0,       0,       0,       0,   0,   0
+AIOLIO:                 280,      0,       0,       0,       0,   0,   0
+pipe:                   760,      0,       3,      37,     698,   0,   0
+procdesc:               136,      0,       1,      86,       2,   0,   0
+Mountpoints:           2744,      0,       3,       3,       8,   0,   0
+ksiginfo:               112,      0,      53,     997,     423,   0,   0
+itimer:                 352,      0,       0,       0,       0,   0,   0
+KNOTE:                  160,      0,       0,       0,       0,   0,   0
+socket:                 872,  64304,      18,      34,    1618,   0,   0
+unpcb:                  256,  64305,      10,     125,    1449,   0,   0
+ipq:                     56,   3976,       0,       0,       0,   0,   0
+udp_inpcb:              488,  64304,       2,      62,     131,   0,   0
+udpcb:                   32,  64356,       2,     618,     131,   0,   0
+tcp_inpcb:              488,  64304,       4,      60,      26,   0,   0
+tcpcb:                  976,  64304,       4,      36,      26,   0,   0
+tcptw:                   88,  12870,       0,       0,       0,   0,   0
+syncache:               168,  15364,       0,      69,      21,   0,   0
+hostcache:               96,  15375,       0,       0,       0,   0,   0
+sackhole:                32,      0,       0,       0,       0,   0,   0
+tfo:                      4,      0,       0,       0,       0,   0,   0
+tfo_ccache_entries:      80,      0,       0,       0,       0,   0,   0
+tcpreass:                48,   7885,       0,       0,       0,   0,   0
+tcp_log:                408, 1000008,       0,       0,       0,   0,   0
+tcp_log_bucket:         144,      0,       0,       0,       0,   0,   0
+tcp_log_node:           120,      0,       0,       0,       0,   0,   0
+sctp_ep:               1280,  64305,       0,       0,       0,   0,   0
+sctp_asoc:             2408,  40000,       0,       0,       0,   0,   0
+sctp_laddr:              48,  80012,       0,     332,       3,   0,   0
+sctp_raddr:             736,  80000,       0,       0,       0,   0,   0
+sctp_chunk:             152, 400010,       0,       0,       0,   0,   0
+sctp_readq:             152, 400010,       0,       0,       0,   0,   0
+sctp_stream_msg_out:    112, 400015,       0,       0,       0,   0,   0
+sctp_asconf:             40, 400059,       0,       0,       0,   0,   0
+sctp_asconf_ack:         48, 400060,       0,       0,       0,   0,   0
+udplite_inpcb:          488,  64304,       0,       0,       0,   0,   0
+ripcb:                  488,  64304,       1,      31,       1,   0,   0
+IPsec SA lft_c:          16,      0,       0,       0,       0,   0,   0
+rtentry:                208,      0,      11,     122,      14,   0,   0
+selfd:                   64,      0,      46,     760,   81334,   0,   0
+swpctrie:               144, 250560,       0,       0,       0,   0,   0
+swblk:                  136, 250560,       0,       0,       0,   0,   0
+FFS inode:              160,      0,     725,      91,     770,   0,   0
+FFS1 dinode:            128,      0,       0,       0,       0,   0,   0
+FFS2 dinode:            256,      0,     725,      70,     770,   0,   0
+
+
+------------------------------------------------------------------------
+vmstat -i
+
+interrupt                          total       rate
+irq1: atkbd0                           2          0
+irq11: em0:irq0++                  57446       3781
+irq14: ata0                         8178        538
+cpu0:timer                          8336        549
+cpu1:timer                          6490        427
+Total                              80452       5295
+
+------------------------------------------------------------------------
+pstat -T
+
+ 71/64303 files
+0M/0M swap space
+
+------------------------------------------------------------------------
+pstat -s
+
+Device          512-blocks     Used    Avail Capacity
+
+------------------------------------------------------------------------
+iostat
+
+       tty             md0             ada0              cd0             cpu
+ tin  tout  KB/t tps  MB/s   KB/t tps  MB/s   KB/t tps  MB/s  us ni sy in id
+   0  3091  0.00   2  0.00  75.75  65  4.77   0.00   0  0.00   6  0  9  2 83
+
+------------------------------------------------------------------------
+ipcs -a
+
+Message Queues:
+T           ID          KEY MODE        OWNER    GROUP    CREATOR  CGROUP                 CBYTES                 QNUM               QBYTES        LSPID        LRPID STIME    RTIME    CTIME
+
+Shared Memory:
+T           ID          KEY MODE        OWNER    GROUP    CREATOR  CGROUP         NATTCH        SEGSZ         CPID         LPID ATIME    DTIME    CTIME
+
+Semaphores:
+T           ID          KEY MODE        OWNER    GROUP    CREATOR  CGROUP          NSEMS OTIME    CTIME
+
+
+------------------------------------------------------------------------
+ipcs -T
+
+msginfo:
+	msgmax:        16384	(max characters in a message)
+	msgmni:           40	(# of message queues)
+	msgmnb:         2048	(max characters in a message queue)
+	msgtql:           40	(max # of messages in system)
+	msgssz:            8	(size of a message segment)
+	msgseg:         2048	(# of message segments in system)
+
+shminfo:
+	shmmax:    536870912	(max shared memory segment size)
+	shmmin:            1	(min shared memory segment size)
+	shmmni:          192	(max number of shared memory identifiers)
+	shmseg:          128	(max shared memory segments per process)
+	shmall:       131072	(max amount of shared memory in pages)
+
+seminfo:
+	semmni:           50	(# of semaphore identifiers)
+	semmns:          340	(# of semaphores in system)
+	semmnu:          150	(# of undo structures in system)
+	semmsl:          340	(max # of semaphores per id)
+	semopm:          100	(max # of operations per semop call)
+	semume:           50	(max # of undo entries per process)
+	semusz:          632	(size in bytes of undo structure)
+	semvmx:        32767	(semaphore maximum value)
+	semaem:        16384	(adjust on exit max value)
+
+
+------------------------------------------------------------------------
+nfsstat
+
+Rpc Counts:
+      Getattr      Setattr       Lookup     Readlink         Read        Write       Create       Remove
+            0            0            0            0            0            0            0            0
+       Rename         Link      Symlink        Mkdir        Rmdir      Readdir     RdirPlus       Access
+            0            0            0            0            0            0            0            0
+        Mknod       Fsstat       Fsinfo     PathConf       Commit
+            0            0            0            0            0
+Rpc Info:
+     TimedOut      Invalid    X Replies      Retries     Requests
+            0            0            0            0            0
+Cache Info:
+    Attr Hits  Attr Misses    Lkup Hits  Lkup Misses    BioR Hits  BioR Misses    BioW Hits  BioW Misses
+            0            0            0            0            0            0            0            0
+   BioRL Hits BioRL Misses    BioD Hits  BioD Misses    DirE Hits  DirE Misses    Accs Hits  Accs Misses
+            0            0            0            0            0            0            0            0
+Server Info:
+      Getattr      Setattr       Lookup     Readlink         Read        Write       Create       Remove
+            0            0            0            0            0            0            0            0
+       Rename         Link      Symlink        Mkdir        Rmdir      Readdir     RdirPlus       Access
+            0            0            0            0            0            0            0            0
+        Mknod       Fsstat       Fsinfo     PathConf       Commit
+            0            0            0            0            0
+Server Re-Failed:
+  140737488346800
+Server Faults:
+140737488346800
+Server Write
+     WriteOps     WriteRPC      Opsaved
+            0            0            0
+Server Cache
+       Inprog         Idem     Non-Idem       Misses
+            0            0            0            0
+
+------------------------------------------------------------------------
+netstat -s
+
+tcp:
+	163845 packets sent
+		128355 data packets (162803686 bytes)
+		0 data packets (0 bytes) retransmitted
+		0 data packets unnecessarily retransmitted
+		0 resends initiated by MTU discovery
+		33332 ack-only packets (413 delayed)
+		0 URG only packets
+		0 window probe packets
+		2158 window update packets
+		0 control packets
+	126037 packets received
+		60156 acks (for 162802947 bytes)
+		1 duplicate ack
+		0 acks for unsent data
+		69695 packets (95380584 bytes) received in-sequence
+		0 completely duplicate packets (0 bytes)
+		0 old duplicate packets
+		0 packets with some dup. data (0 bytes duped)
+		0 out-of-order packets (0 bytes)
+		0 packets (0 bytes) of data after window
+		0 window probes
+		1 window update packet
+		0 packets received after close
+		0 discarded for bad checksums
+		0 discarded for bad header offset fields
+		0 discarded because packet too short
+		0 discarded due to memory problems
+	0 connection requests
+	21 connection accepts
+	0 bad connection attempts
+	0 listen queue overflows
+	0 ignored RSTs in the windows
+	21 connections established (including accepts)
+		0 times used RTT from hostcache
+		0 times used RTT variance from hostcache
+		0 times used slow-start threshold from hostcache
+	22 connections closed (including 20 drops)
+		0 connections updated cached RTT on close
+		0 connections updated cached RTT variance on close
+		0 connections updated cached ssthresh on close
+	0 embryonic connections dropped
+	60156 segments updated rtt (of 11890 attempts)
+	0 retransmit timeouts
+		0 connections dropped by rexmit timeout
+	0 persist timeouts
+		0 connections dropped by persist timeout
+	0 Connections (fin_wait_2) dropped because of timeout
+	0 keepalive timeouts
+		0 keepalive probes sent
+		0 connections dropped by keepalive
+	43640 correct ACK header predictions
+	65380 correct data packet header predictions
+	21 syncache entries added
+		0 retransmitted
+		0 dupsyn
+		0 dropped
+		21 completed
+		0 bucket overflow
+		0 cache overflow
+		0 reset
+		0 stale
+		0 aborted
+		0 badack
+		0 unreach
+		0 zone failures
+	21 cookies sent
+	21 cookies received
+	0 hostcache entries added
+		0 bucket overflow
+	0 SACK recovery episodes
+	0 segment rexmits in SACK recovery episodes
+	0 byte rexmits in SACK recovery episodes
+	0 SACK options (SACK blocks) received
+	0 SACK options (SACK blocks) sent
+	0 SACK scoreboard overflow
+	0 packets with ECN CE bit set
+	0 packets with ECN ECT(0) bit set
+	0 packets with ECN ECT(1) bit set
+	0 successful ECN handshakes
+	0 times ECN reduced the congestion window
+	0 packets with matching signature received
+	0 packets with bad signature received
+	0 times failed to make signature due to no SA
+	0 times unexpected signature received
+	0 times no signature provided by segment
+	0 Path MTU discovery black hole detection activations
+	0 Path MTU discovery black hole detection min MSS activations
+	0 Path MTU discovery black hole detection failures
+TCP connection count by state:
+	0 connections in CLOSED state
+	3 connections in LISTEN state
+	0 connections in SYN_SENT state
+	0 connections in SYN_RCVD state
+	1 connection  in ESTABLISHED state
+	0 connections in CLOSE_WAIT state
+	0 connections in FIN_WAIT_1 state
+	0 connections in CLOSING state
+	0 connections in LAST_ACK state
+	0 connections in FIN_WAIT_2 state
+	0 connections in TIME_WAIT state
+udp:
+	44 datagrams received
+	0 with incomplete header
+	0 with bad data length field
+	0 with bad checksum
+	0 with no checksum
+	0 dropped due to no socket
+	1 broadcast/multicast datagram undelivered
+	0 dropped due to full socket buffers
+	0 not for hashed pcb
+	43 delivered
+	43 datagrams output
+	0 times multicast source filter matched
+ip:
+	126087 total packets received
+	0 bad header checksums
+	0 with size smaller than minimum
+	0 with data size < data length
+	0 with ip length > max ip packet size
+	0 with header length < data size
+	0 with data length < header length
+	0 with bad options
+	0 with incorrect version number
+	0 fragments received
+	0 fragments dropped (dup or out of space)
+	0 fragments dropped after timeout
+	0 packets reassembled ok
+	126081 packets for this host
+	0 packets for unknown/unsupported protocol
+	0 packets forwarded (0 packets fast forwarded)
+	6 packets not forwardable
+	0 packets received for unknown multicast group
+	0 redirects sent
+	163890 packets sent from this host
+	0 packets sent with fabricated ip header
+	0 output packets dropped due to no bufs, etc.
+	0 output packets discarded due to no route
+	0 output datagrams fragmented
+	0 fragments created
+	0 datagrams that can't be fragmented
+	0 tunneling packets that can't find gif
+	0 datagrams with bad address in header
+icmp:
+	0 calls to icmp_error
+	0 errors not generated in response to an icmp message
+	0 messages with bad code fields
+	0 messages less than the minimum length
+	0 messages with bad checksum
+	0 messages with bad length
+	0 multicast echo requests ignored
+	0 multicast timestamp requests ignored
+	0 message responses generated
+	0 invalid return addresses
+	0 no return routes
+ipsec:
+	0 inbound packets violated process security policy
+	0 inbound packets failed due to insufficient memory
+	0 invalid inbound packets
+	0 outbound packets violated process security policy
+	0 outbound packets with no SA available
+	0 outbound packets failed due to insufficient memory
+	0 outbound packets with no route available
+	0 invalid outbound packets
+	0 outbound packets with bundled SAs
+	0 spd cache hits
+	0 spd cache misses
+	0 clusters copied during clone
+	0 mbufs inserted during makespace
+ah:
+	0 packets shorter than header shows
+	0 packets dropped; protocol family not supported
+	0 packets dropped; no TDB
+	0 packets dropped; bad KCR
+	0 packets dropped; queue full
+	0 packets dropped; no transform
+	0 replay counter wraps
+	0 packets dropped; bad authentication detected
+	0 packets dropped; bad authentication length
+	0 possible replay packets detected
+	0 packets in
+	0 packets out
+	0 packets dropped; invalid TDB
+	0 bytes in
+	0 bytes out
+	0 packets dropped; larger than IP_MAXPACKET
+	0 packets blocked due to policy
+	0 crypto processing failures
+	0 tunnel sanity check failures
+esp:
+	0 packets shorter than header shows
+	0 packets dropped; protocol family not supported
+	0 packets dropped; no TDB
+	0 packets dropped; bad KCR
+	0 packets dropped; queue full
+	0 packets dropped; no transform
+	0 packets dropped; bad ilen
+	0 replay counter wraps
+	0 packets dropped; bad encryption detected
+	0 packets dropped; bad authentication detected
+	0 possible replay packets detected
+	0 packets in
+	0 packets out
+	0 packets dropped; invalid TDB
+	0 bytes in
+	0 bytes out
+	0 packets dropped; larger than IP_MAXPACKET
+	0 packets blocked due to policy
+	0 crypto processing failures
+	0 tunnel sanity check failures
+ipcomp:
+	0 packets shorter than header shows
+	0 packets dropped; protocol family not supported
+	0 packets dropped; no TDB
+	0 packets dropped; bad KCR
+	0 packets dropped; queue full
+	0 packets dropped; no transform
+	0 replay counter wraps
+	0 packets in
+	0 packets out
+	0 packets dropped; invalid TDB
+	0 bytes in
+	0 bytes out
+	0 packets dropped; larger than IP_MAXPACKET
+	0 packets blocked due to policy
+	0 crypto processing failures
+	0 packets sent uncompressed; size < compr. algo. threshold
+	0 packets sent uncompressed; compression was useless
+arp:
+	2 ARP requests sent
+	1 ARP reply sent
+	1 ARP request received
+	1 ARP reply received
+	3 ARP packets received
+	0 total packets dropped due to no ARP entry
+	0 ARP entrys timed out
+	0 Duplicate IPs seen
+ip6:
+	0 total packets received
+	0 with size smaller than minimum
+	0 with data size < data length
+	0 with bad options
+	0 with incorrect version number
+	0 fragments received
+	0 fragments dropped (dup or out of space)
+	0 fragments dropped after timeout
+	0 fragments that exceeded limit
+	0 packets reassembled ok
+	0 packets for this host
+	0 packets forwarded
+	0 packets not forwardable
+	0 redirects sent
+	0 packets sent from this host
+	0 packets sent with fabricated ip header
+	0 output packets dropped due to no bufs, etc.
+	0 output packets discarded due to no route
+	0 output datagrams fragmented
+	0 fragments created
+	0 datagrams that can't be fragmented
+	0 packets that violated scope rules
+	0 multicast packets which we don't join
+	Mbuf statistics:
+		0 one mbuf
+		0 one ext mbuf
+		0 two or more ext mbuf
+	0 packets whose headers are not contiguous
+	0 tunneling packets that can't find gif
+	0 packets discarded because of too many headers
+	0 failures of source address selection
+icmp6:
+	0 calls to icmp6_error
+	0 errors not generated in response to an icmp6 message
+	0 errors not generated because of rate limitation
+	0 messages with bad code fields
+	0 messages < minimum length
+	0 bad checksums
+	0 messages with bad length
+	Histogram of error messages to be generated:
+		0 no route
+		0 administratively prohibited
+		0 beyond scope
+		0 address unreachable
+		0 port unreachable
+		0 packet too big
+		0 time exceed transit
+		0 time exceed reassembly
+		0 erroneous header field
+		0 unrecognized next header
+		0 unrecognized option
+		0 redirect
+		0 unknown
+	0 message responses generated
+	0 messages with too many ND options
+	0 messages with bad ND options
+	0 bad neighbor solicitation messages
+	0 bad neighbor advertisement messages
+	0 bad router solicitation messages
+	0 bad router advertisement messages
+	0 bad redirect messages
+	0 path MTU changes
+ipsec6:
+	0 inbound packets violated process security policy
+	0 inbound packets failed due to insufficient memory
+	0 invalid inbound packets
+	0 outbound packets violated process security policy
+	0 outbound packets with no SA available
+	0 outbound packets failed due to insufficient memory
+	0 outbound packets with no route available
+	0 invalid outbound packets
+	0 outbound packets with bundled SAs
+	0 spd cache hits
+	0 spd cache misses
+	0 clusters copied during clone
+	0 mbufs inserted during makespace
+rip6:
+	0 messages received
+	0 checksum calculations on inbound
+	0 messages with bad checksum
+	0 messages dropped due to no socket
+	0 multicast messages dropped due to no socket
+	0 messages dropped due to full socket buffers
+	0 delivered
+	0 datagrams output
+pfkey:
+	0 requests sent from userland
+	0 bytes sent from userland
+	0 messages with invalid length field
+	0 messages with invalid version field
+	0 messages with invalid message type field
+	0 messages too short
+	0 messages with memory allocation failure
+	0 messages with duplicate extension
+	0 messages with invalid extension type
+	0 messages with invalid sa type
+	0 messages with invalid address extension
+	0 requests sent to userland
+	0 bytes sent to userland
+	0 messages toward single socket
+	0 messages toward all sockets
+	0 messages toward registered sockets
+	0 messages with memory allocation failure
+
+------------------------------------------------------------------------
+netstat -m
+
+1074/1723/2797 mbufs in use (current/cache/total)
+1023/1019/2042/125276 mbuf clusters in use (current/cache/total/max)
+6/507 mbuf+clusters out of packet secondary zone in use (current/cache)
+0/114/114/62638 4k (page size) jumbo clusters in use (current/cache/total/max)
+0/0/0/55677 9k jumbo clusters in use (current/cache/total/max)
+0/0/0/41756 16k jumbo clusters in use (current/cache/total/max)
+2314K/2924K/5239K bytes allocated to network (current/cache/total)
+0/0/0 requests for mbufs denied (mbufs/clusters/mbuf+clusters)
+0/0/0 requests for mbufs delayed (mbufs/clusters/mbuf+clusters)
+0/0/0 requests for jumbo clusters delayed (4k/9k/16k)
+0/0/0 requests for jumbo clusters denied (4k/9k/16k)
+0 sendfile syscalls
+0 sendfile syscalls completed without I/O request
+0 requests for I/O initiated by sendfile
+0 pages read by sendfile as part of a request
+0 pages were valid at time of a sendfile request
+0 pages were valid and substituted to bogus page
+0 pages were requested for read ahead by applications
+0 pages were read ahead by sendfile
+0 times sendfile encountered an already busy page
+0 requests for sfbufs denied
+0 requests for sfbufs delayed
+
+------------------------------------------------------------------------
+netstat -anA
+
+Active Internet connections (including servers)
+Tcpcb            Proto Recv-Q Send-Q Local Address      Foreign Address    (state)
+fffff80003b591e8 udp4       0      0 *.514              *.*
+fffff80003b58d58 udp6       0      0 *.514              *.*
+
+------------------------------------------------------------------------
+netstat -aL
+
+Current listen queue sizes (qlen/incqlen/maxqlen)
+Proto Listen                           Local Address
+
+------------------------------------------------------------------------
+fstat
+
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 5 at 0x4400000000
+fstat: can't read file 11 at 0x4400000000
+fstat: can't read file 17 at 0x4200000000
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 5 at 0x800000000
+fstat: can't read file 7 at 0x20007ffffffffff
+fstat: can't read file 8 at 0x4000000001fffff
+fstat: can't read file 10 at 0x780000ffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 5 at 0x600000000
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 5 at 0x400000000
+fstat: can't read file 7 at 0x20007ffffffffff
+fstat: can't read file 8 at 0x4000000001fffff
+fstat: can't read file 10 at 0x780000ffff
+fstat: can't read file 11 at 0x400000000
+fstat: can't read file 13 at 0x20007ffffffffff
+fstat: can't read file 14 at 0x4000000001fffff
+fstat: can't read file 16 at 0x780000ffff
+fstat: can't read file 17 at 0x400000000
+fstat: can't read file 19 at 0x20007ffffffffff
+fstat: can't read file 20 at 0x4000000001fffff
+fstat: can't read file 22 at 0x780000ffff
+fstat: can't read file 23 at 0x2600000001
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 5 at 0x800000000
+fstat: can't read file 7 at 0x20007ffffffffff
+fstat: can't read file 8 at 0x4000000001fffff
+fstat: can't read file 1 at 0x200000000000000
+fstat: can't read file 2 at 0x400000000000000
+fstat: can't read file 5 at 0x800000000
+fstat: can't read file 7 at 0x200000000000002
+fstat: can't read file 8 at 0x400000000000000
+fstat: can't read file 11 at 0x400000000
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 5 at 0x800000000
+fstat: can't read file 7 at 0x20007ffffffffff
+fstat: can't read file 8 at 0x4000000001fffff
+fstat: can't read file 10 at 0x780000ffff
+fstat: can't read file 1 at 0x20007ffffffffff
+fstat: can't read file 2 at 0x4000000001fffff
+fstat: can't read file 4 at 0x780000ffff
+fstat: can't read file 5 at 0x800000000
+USER     CMD          PID   FD MOUNT      INUM MODE         SZ|DV R/W
+root     cp          1946 root /             2 drwxr-xr-x    1024  r
+root     cp          1946   wd /        1685376 drwxr-xr-x     512  r
+root     cp          1946 text /        240801 -r-xr-xr-x   31824  r
+root     cp          1946 ctty /dev        102 crw--w----   pts/0 rw
+root     cp          1946    0 /dev        102 crw--w----   pts/0 rw
+root     csh         1944 root /             2 drwxr-xr-x    1024  r
+root     csh         1944   wd /        1685376 drwxr-xr-x     512  r
+root     csh         1944 text /        240777 -r-xr-xr-x  429104  r
+root     csh         1944 ctty /dev        102 crw--w----   pts/0 rw
+root     md0         1832 root /             2 drwxr-xr-x    1024  r
+root     md0         1832   wd /             2 drwxr-xr-x    1024  r
+root     sshd         801 root /             2 drwxr-xr-x    1024  r
+root     sshd         801   wd /             2 drwxr-xr-x    1024  r
+root     sshd         801 text /        2006533 -r-xr-xr-x  319304  r
+root     sshd         801    0 /dev         40 crw-rw-rw-    null rw
+root     sshd         801    6 /dev         40 crw-rw-rw-    null rw
+root     getty        798 root /             2 drwxr-xr-x    1024  r
+root     getty        798   wd /             2 drwxr-xr-x    1024  r
+root     getty        798 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        798 ctty /dev         83 crw-------   ttyv7 rw
+root     getty        798    0 /dev         83 crw-------   ttyv7 rw
+root     getty        797 root /             2 drwxr-xr-x    1024  r
+root     getty        797   wd /             2 drwxr-xr-x    1024  r
+root     getty        797 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        797 ctty /dev         82 crw-------   ttyv6 rw
+root     getty        797    0 /dev         82 crw-------   ttyv6 rw
+root     getty        796 root /             2 drwxr-xr-x    1024  r
+root     getty        796   wd /             2 drwxr-xr-x    1024  r
+root     getty        796 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        796 ctty /dev         81 crw-------   ttyv5 rw
+root     getty        796    0 /dev         81 crw-------   ttyv5 rw
+root     getty        795 root /             2 drwxr-xr-x    1024  r
+root     getty        795   wd /             2 drwxr-xr-x    1024  r
+root     getty        795 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        795 ctty /dev         80 crw-------   ttyv4 rw
+root     getty        795    0 /dev         80 crw-------   ttyv4 rw
+root     getty        794 root /             2 drwxr-xr-x    1024  r
+root     getty        794   wd /             2 drwxr-xr-x    1024  r
+root     getty        794 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        794 ctty /dev         79 crw-------   ttyv3 rw
+root     getty        794    0 /dev         79 crw-------   ttyv3 rw
+root     getty        793 root /             2 drwxr-xr-x    1024  r
+root     getty        793   wd /             2 drwxr-xr-x    1024  r
+root     getty        793 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        793 ctty /dev         78 crw-------   ttyv2 rw
+root     getty        793    0 /dev         78 crw-------   ttyv2 rw
+root     getty        792 root /             2 drwxr-xr-x    1024  r
+root     getty        792   wd /             2 drwxr-xr-x    1024  r
+root     getty        792 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        792 ctty /dev         77 crw-------   ttyv1 rw
+root     getty        792    0 /dev         77 crw-------   ttyv1 rw
+root     getty        791 root /             2 drwxr-xr-x    1024  r
+root     getty        791   wd /             2 drwxr-xr-x    1024  r
+root     getty        791 text /        2006894 -r-xr-xr-x   36032  r
+root     getty        791 ctty /dev         76 crw-------   ttyv0 rw
+root     getty        791    0 /dev         76 crw-------   ttyv0 rw
+root     cron         741 root /             2 drwxr-xr-x    1024  r
+root     cron         741   wd /        1605136 drwxr-x---     512  r
+root     cron         741 text /        2006447 -r-xr-xr-x   52272  r
+root     cron         741    0 /dev         40 crw-rw-rw-    null rw
+smmsp    sendmail     737 root /             2 drwxr-xr-x    1024  r
+smmsp    sendmail     737   wd /        1605148 drwxrwx---     512  r
+smmsp    sendmail     737 text /        2007120 -r-xr-sr-x  740512  r
+smmsp    sendmail     737    0 /dev         40 crw-rw-rw-    null  r
+root     sendmail     734 root /             2 drwxr-xr-x    1024  r
+root     sendmail     734   wd /        1605147 drwxr-xr-x     512  r
+root     sendmail     734 text /        2007120 -r-xr-sr-x  740512  r
+root     sendmail     734    0 /dev         40 crw-rw-rw-    null  r
+root     sshd         731 root /             2 drwxr-xr-x    1024  r
+root     sshd         731   wd /             2 drwxr-xr-x    1024  r
+root     sshd         731 text /        2006533 -r-xr-xr-x  319304  r
+root     sshd         731    0 /dev         40 crw-rw-rw-    null rw
+root     syslogd      549 root /             2 drwxr-xr-x    1024  r
+root     syslogd      549   wd /             2 drwxr-xr-x    1024  r
+root     syslogd      549 text /        2006612 -r-xr-xr-x   60616  r
+root     syslogd      549    0 /dev         40 crw-rw-rw-    null rw
+root     syslogd      549    6 /dev         40 crw-rw-rw-    null rw
+root     syslogd      549   12 /dev         40 crw-rw-rw-    null rw
+root     syslogd      549   18* pipe fffff80003f058e8 <-> fffff80003f05a50      0 rw
+root     devd         406 root /             2 drwxr-xr-x    1024  r
+root     devd         406   wd /             2 drwxr-xr-x    1024  r
+root     devd         406 text /        160589 -r-xr-xr-x  993232  r
+root     devd         406    0 /dev         40 crw-rw-rw-    null rw
+root     devd         406    6 /dev         40 crw-rw-rw-    null rw
+_dhcp    dhclient     405 root /             2 drwxr-xr-x    1024  r
+_dhcp    dhclient     405   wd /             2 drwxr-xr-x    1024  r
+_dhcp    dhclient     405 text /        160605 -r-xr-xr-x  106856  r
+_dhcp    dhclient     405    0 /dev         40 crw-rw-rw-    null rw
+_dhcp    dhclient     405    6 /dev         40 crw-rw-rw-    null rw
+root     dhclient     358 root /             2 drwxr-xr-x    1024  r
+root     dhclient     358   wd /             2 drwxr-xr-x    1024  r
+root     dhclient     358 text /        160605 -r-xr-xr-x  106856  r
+root     dhclient     358    0 /dev         40 crw-rw-rw-    null rw
+root     dhclient     358    6 /dev         40 crw-rw-rw-    null rw
+root     dhclient     355 root /             2 drwxr-xr-x    1024  r
+root     dhclient     355   wd /             2 drwxr-xr-x    1024  r
+root     dhclient     355 text /        160605 -r-xr-xr-x  106856  r
+root     dhclient     355    0 /dev         40 crw-rw-rw-    null rw
+root     dhclient     355    6 /dev         40 crw-rw-rw-    null rw
+root     init           1 root /             2 drwxr-xr-x    1024  r
+root     init           1   wd /             2 drwxr-xr-x    1024  r
+root     init           1 text /        160555 -r-xr-xr-x  1240504  r
+root     kernel         0 root /             2 drwxr-xr-x    1024  r
+root     kernel         0   wd /             2 drwxr-xr-x    1024  r
+
+------------------------------------------------------------------------
+dmesg
+
+---<<BOOT>>---
+Copyright (c) 1992-2018 The FreeBSD Project.
+Copyright (c) 1979, 1980, 1983, 1986, 1988, 1989, 1991, 1992, 1993, 1994
+	The Regents of the University of California. All rights reserved.
+FreeBSD is a registered trademark of The FreeBSD Foundation.
+FreeBSD 12.0-RELEASE GENERIC amd64
+FreeBSD clang version 6.0.1 (tags/RELEASE_601/final 335540) (based on LLVM 6.0.1)
+WARNING: DIAGNOSTIC option enabled, expect reduced performance.
+Entering uma_startup with 6 boot pages configured
+startup_alloc from "UMA Kegs", 5 boot pages left
+startup_alloc from "UMA Zones", 4 boot pages left
+startup_alloc from "UMA Zones", 3 boot pages left
+startup_alloc from "UMA Hash", 2 boot pages left
+startup_alloc from "UMA Zones", 1 boot pages left
+Entering uma_startup1 with 0 boot pages left
+Entering uma_startup2 with 0 boot pages left
+VT(vga): text 80x25
+CPU: Intel Xeon E3-12xx v2 (Ivy Bridge, IBRS) (3400.06-MHz K8-class CPU)
+  Origin="GenuineIntel"  Id=0x306a9  Family=0x6  Model=0x3a  Stepping=9
+  Features=0x783fbff<FPU,VME,DE,PSE,TSC,MSR,PAE,MCE,CX8,APIC,SEP,MTRR,PGE,MCA,CMOV,PAT,PSE36,MMX,FXSR,SSE,SSE2>
+  Features2=0xffb82203<SSE3,PCLMULQDQ,SSSE3,CX16,SSE4.1,SSE4.2,x2APIC,POPCNT,TSCDLT,AESNI,XSAVE,OSXSAVE,AVX,F16C,RDRAND,HV>
+  AMD Features=0x28100800<SYSCALL,NX,RDTSCP,LM>
+  AMD Features2=0x1<LAHF>
+  Structured Extended Features=0x281<FSGSBASE,SMEP,ERMS>
+  Structured Extended Features3=0x4000000<IBPB>
+  XSAVE Features=0x1<XSAVEOPT>
+Hypervisor: Origin = "KVMKVMKVM"
+real memory  = 2147483648 (2048 MB)
+avail memory = 2042863616 (1948 MB)
+Event timer "LAPIC" quality 600
+ACPI APIC Table: <BOCHS  BXPCAPIC>
+FreeBSD/SMP: Multiprocessor System Detected: 2 CPUs
+FreeBSD/SMP: 2 package(s) x 1 core(s)
+random: unblocking device.
+ioapic0 <Version 1.1> irqs 0-23 on motherboard
+Launching APs: 1
+random: entropy device external interface
+[ath_hal] loaded
+module_register_init: MOD_LOAD (vesa, 0xffffffff810cfc20, 0) error 19
+kbd1 at kbdmux0
+random: registering fast source Intel Secure Key RNG
+random: fast provider: "Intel Secure Key RNG"
+netmap: loaded module
+nexus0
+vtvga0: <VT VGA driver> on motherboard
+cryptosoft0: <software crypto> on motherboard
+acpi0: <BOCHS BXPCRSDT> on motherboard
+acpi0: Power Button (fixed)
+cpu0: <ACPI CPU> on acpi0
+atrtc0: <AT realtime clock> port 0x70-0x71,0x72-0x77 irq 8 on acpi0
+atrtc0: registered as a time-of-day clock, resolution 1.000000s
+Event timer "RTC" frequency 32768 Hz quality 0
+Timecounter "ACPI-fast" frequency 3579545 Hz quality 900
+acpi_timer0: <24-bit timer at 3.579545MHz> port 0x608-0x60b on acpi0
+pcib0: <ACPI Host-PCI bridge> port 0xcf8-0xcff on acpi0
+pci0: <ACPI PCI bus> on pcib0
+isab0: <PCI-ISA bridge> at device 1.0 on pci0
+isa0: <ISA bus> on isab0
+atapci0: <Intel PIIX3 WDMA2 controller> port 0x1f0-0x1f7,0x3f6,0x170-0x177,0x376,0xc0c0-0xc0cf at device 1.1 on pci0
+ata0: <ATA channel> at channel 0 on atapci0
+ata1: <ATA channel> at channel 1 on atapci0
+pci0: <bridge> at device 1.3 (no driver attached)
+vgapci0: <VGA-compatible display> mem 0xfc000000-0xfdffffff,0xfebb0000-0xfebb0fff at device 2.0 on pci0
+vgapci0: Boot video device
+em0: <Intel(R) PRO/1000 Network Connection> port 0xc000-0xc03f mem 0xfeb80000-0xfeb9ffff irq 11 at device 3.0 on pci0
+em0: attach_pre capping queues at 1
+em0: using 1024 tx descriptors and 1024 rx descriptors
+em0: allocated for 1 tx_queues
+em0: allocated for 1 rx_queues
+em0: Ethernet address: 52:54:00:10:b0:81
+em0: netmap queues/slots: TX 1/1024, RX 1/1024
+uhci0: <Intel 82801I (ICH9) USB controller> port 0xc040-0xc05f irq 11 at device 4.0 on pci0
+usbus0 on uhci0
+usbus0: 12Mbps Full Speed USB v1.0
+uhci1: <Intel 82801I (ICH9) USB controller> port 0xc060-0xc07f irq 10 at device 4.1 on pci0
+usbus1 on uhci1
+usbus1: 12Mbps Full Speed USB v1.0
+uhci2: <Intel 82801I (ICH9) USB controller> port 0xc080-0xc09f irq 10 at device 4.2 on pci0
+usbus2 on uhci2
+usbus2: 12Mbps Full Speed USB v1.0
+ehci0: <Intel 82801I (ICH9) USB 2.0 controller> mem 0xfebb1000-0xfebb1fff irq 11 at device 4.7 on pci0
+usbus3: EHCI version 1.0
+usbus3 on ehci0
+usbus3: 480Mbps High Speed USB v2.0
+virtio_pci0: <VirtIO PCI Balloon adapter> port 0xc0a0-0xc0bf mem 0xfe000000-0xfe003fff irq 10 at device 5.0 on pci0
+vtballoon0: <VirtIO Balloon Adapter> on virtio_pci0
+acpi_syscontainer0: <System Container> on acpi0
+acpi_syscontainer1: <System Container> port 0xaf00-0xaf0b on acpi0
+acpi_syscontainer2: <System Container> port 0xafe0-0xafe3 on acpi0
+acpi_syscontainer3: <System Container> port 0xae00-0xae13 on acpi0
+atkbdc0: <Keyboard controller (i8042)> port 0x60,0x64 irq 1 on acpi0
+atkbd0: <AT Keyboard> irq 1 on atkbdc0
+kbd0 at atkbd0
+atkbd0: [GIANT-LOCKED]
+psm0: <PS/2 Mouse> irq 12 on atkbdc0
+psm0: [GIANT-LOCKED]
+psm0: model IntelliMouse Explorer, device ID 4
+fdc0: <floppy drive controller (FDE)> port 0x3f2-0x3f5,0x3f7 irq 6 drq 2 on acpi0
+fdc0: does not respond
+device_attach: fdc0 attach returned 6
+uart0: <16550 or compatible> port 0x3f8-0x3ff irq 4 flags 0x10 on acpi0
+orm0: <ISA Option ROMs> at iomem 0xc0000-0xc97ff,0xec800-0xeffff pnpid ORM0000 on isa0
+vga0: <Generic ISA VGA> at port 0x3c0-0x3df iomem 0xa0000-0xbffff pnpid PNP0900 on isa0
+attimer0: <AT timer> at port 0x40 on isa0
+Timecounter "i8254" frequency 1193182 Hz quality 0
+Event timer "i8254" frequency 1193182 Hz quality 100
+attimer0: non-PNP ISA device will be removed from GENERIC in FreeBSD 12.
+fdc0: No FDOUT register!
+NULL mp in getnewvnode(9), tag crossmp
+Timecounters tick every 10.000 msec
+ugen2.1: <Intel UHCI root HUB> at usbus2
+ugen3.1: <Intel EHCI root HUB> at usbus3
+uhub0: <Intel UHCI root HUB, class 9/0, rev 1.00/1.00, addr 1> on usbus2
+uhub1: <Intel EHCI root HUB, class 9/0, rev 2.00/1.00, addr 1> on usbus3
+ugen1.1: <Intel UHCI root HUB> at usbus1
+uhub2: <Intel UHCI root HUB, class 9/0, rev 1.00/1.00, addr 1> on usbus1
+ugen0.1: <Intel UHCI root HUB> at usbus0
+uhub3: <Intel UHCI root HUB, class 9/0, rev 1.00/1.00, addr 1> on usbus0
+ada0 at ata0 bus 0 scbus0 target 0 lun 0
+ada0: <QEMU HARDDISK 2.5+> ATA-7 device
+ada0: Serial Number QM00001
+ada0: 16.700MB/s transfers (WDMA2, PIO 8192bytes)
+ada0: 25600MB (52428800 512 byte sectors)
+cd0 at ata0 bus 0 scbus0 target 1 lun 0
+cd0: <QEMU QEMU DVD-ROM 2.5+> Removable CD-ROM SCSI device
+cd0: Serial Number QM00002
+cd0: 16.700MB/s transfers (WDMA2, ATAPI 12bytes, PIO 65534bytes)
+cd0: Attempt to query device size failed: NOT READY, Medium not present
+WARNING: DIAGNOSTIC option enabled, expect reduced performance.
+Trying to mount root from ufs:/dev/ada0p2 [rw]...
+Expensive timeout(9) function: 0xffffffff809ebc20(0xffffffff81af2cb0) 0.005693740 s
+WARNING: / was not properly dismounted
+WARNING: /: mount pending error: blocks 128 files 1
+Setting hostuuid: df521590-c04c-4022-b9a9-7d38f800ec2e.
+Setting hostid: 0x5f2988f0.
+Starting file system checks:
+** SU+J Recovering /dev/ada0p2
+** Reading 33554432 byte journal from inode 4.
+** Building recovery table.
+** Resolving unreferenced inode list.
+** Processing journal entries.
+uhub0: 2 ports with 2 removable, self powered
+uhub2: 2 ports with 2 removable, self powered
+uhub3: 2 ports with 2 removable, self powered
+** 3471 journal records in 126464 bytes for 87.83% utilization
+** Freed 6 inodes (6 dirs) 1446 blocks, and 6 frags.
+
+***** FILE SYSTEM MARKED CLEAN *****
+Mounting local filesystems:.
+ELF ldconfig path: /lib /usr/lib /usr/lib/compat /usr/local/lib /usr/local/lib/e2fsprogs /usr/local/lib/perl5/5.26/mach/CORE
+32-bit compatibility ldconfig path: /usr/lib32
+Setting up harvesting: PURE_RDRAND,[UMA],[FS_ATIME],SWI,INTERRUPT,NET_NG,NET_ETHER,NET_TUN,MOUSE,KEYBOARD,ATTACH,CACHED
+Feeding entropy: .
+lo0: link state changed to UP
+uhub1: 6 ports with 6 removable, self powered
+em0: link state changed to UP
+Starting Network: lo0 em0.
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> metric 0 mtu 16384
+	options=680003<RXCSUM,TXCSUM,LINKSTATE,RXCSUM_IPV6,TXCSUM_IPV6>
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x2
+	inet 127.0.0.1 netmask 0xff000000
+	groups: lo
+	nd6 options=21<PERFORMNUD,AUTO_LINKLOCAL>
+em0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+	options=81209b<RXCSUM,TXCSUM,VLAN_MTU,VLAN_HWTAGGING,VLAN_HWCSUM,WOL_MAGIC,VLAN_HWFILTER>
+	ether 52:54:00:10:b0:81
+	media: Ethernet autoselect (1000baseT <full-duplex>)
+	status: active
+	nd6 options=29<PERFORMNUD,IFDISABLED,AUTO_LINKLOCAL>
+Starting devd.
+Autoloading module: intpm.ko
+intsmb0: <Intel PIIX4 SMBUS Interface> irq 9 at device 1.3 on pci0
+intsmb0: intr IRQ 9 enabled revision 0
+smbus0: <System Management Bus> on intsmb0
+Starting dhclient.
+DHCPREQUEST on em0 to 255.255.255.255 port 67
+DHCPACK from 192.168.122.1
+if_delmulti_locked: detaching ifnet instance 0xfffff8000351a800
+bound to 192.168.122.107 -- renewal in 1800 seconds.
+add host 127.0.0.1: gateway lo0 fib 0: route already in table
+add host ::1: gateway lo0 fib 0: route already in table
+add net fe80::: gateway ::1
+add net ff02::: gateway ::1
+add net ::ffff:0.0.0.0: gateway ::1
+add net ::0.0.0.0: gateway ::1
+Creating and/or trimming log files.
+Starting syslogd.
+savecore 559 - - reboot after panic: ext2_dirbad: /mnt/radamsa_fuzz3_ext2_15MB: bad dir ino 11 at offset 1024: mangled entry
+savecore 559 - - writing core to /var/crash/vmcore.0
+Writing crash summary to /var/crash/core.txt.0.
+Clearing /tmp (X related).
+Updating motd:.
+Mounting late filesystems:.
+Configuring vt: keymap blanktime.
+Performing sanity check on sshd configuration.
+Starting sshd.
+Starting sendmail_submit.
+Starting sendmail_msp_queue.
+Starting cron.
+Starting background file system checks in 60 seconds.
+
+Sat Mar 16 03:59:12 CET 2019
+Expensive timeout(9) function: 0xffffffff80da0a00(0xfffff8002f669b70) 0.015339379 s
+
+
+Fatal trap 12: page fault while in kernel mode
+cpuid = 1; apic id = 01
+fault virtual address	= 0xfffff7fe9a87894c
+fault code		= supervisor write data, page not present
+instruction pointer	= 0x20:0xffffffff8282e56c
+stack pointer	        = 0x28:0xfffffe001b81d5d0
+frame pointer	        = 0x28:0xfffffe001b81d630
+code segment		= base 0x0, limit 0xfffff, type 0x1b
+			= DPL 0, pres 1, long 1, def32 0, gran 1
+processor eflags	= interrupt enabled, resume, IOPL = 0
+current process		= 1946 (cp)
+trap number		= 12
+panic: page fault
+cpuid = 1
+time = 1552705261
+KDB: stack backtrace:
+db_trace_self_wrapper() at db_trace_self_wrapper+0x2b/frame 0xfffffe001b81d280
+vpanic() at vpanic+0x1a3/frame 0xfffffe001b81d2e0
+panic() at panic+0x43/frame 0xfffffe001b81d340
+trap_fatal() at trap_fatal+0x35f/frame 0xfffffe001b81d390
+trap_pfault() at trap_pfault+0x49/frame 0xfffffe001b81d3f0
+trap() at trap+0x2ba/frame 0xfffffe001b81d500
+calltrap() at calltrap+0x8/frame 0xfffffe001b81d500
+--- trap 0xc, rip = 0xffffffff8282e56c, rsp = 0xfffffe001b81d5d0, rbp = 0xfffffe001b81d630 ---
+ext2_vget() at ext2_vget+0x2ec/frame 0xfffffe001b81d630
+ext2_valloc() at ext2_valloc+0x501/frame 0xfffffe001b81d6c0
+ext2_mkdir() at ext2_mkdir+0x80/frame 0xfffffe001b81d740
+VOP_MKDIR_APV() at VOP_MKDIR_APV+0x9e/frame 0xfffffe001b81d770
+kern_mkdirat() at kern_mkdirat+0x1be/frame 0xfffffe001b81d980
+amd64_syscall() at amd64_syscall+0x28d/frame 0xfffffe001b81dab0
+fast_syscall_common() at fast_syscall_common+0x101/frame 0xfffffe001b81dab0
+--- syscall (136, FreeBSD ELF64, sys_mkdir), rip = 0x8003fd55a, rsp = 0x7fffffffe6b8, rbp = 0x7fffffffe7f0 ---
+Uptime: 2m5s
+Dumping 157 out of 2009 MB:..11%..21%..31%..41%..51%..62%..72%..82%..92%
+
+------------------------------------------------------------------------
+kernel config
+
+options	CONFIG_AUTOGENERATED
+ident	GENERIC
+machine	amd64
+cpu	HAMMER
+makeoptions	WITH_CTF=1
+makeoptions	DEBUG=-g
+options	PANIC_REBOOT_WAIT_TIME=0
+options	DEBUG_REDZONE
+options	DIAGNOSTIC
+options	INVARIANT_SUPPORT
+options	INVARIANTS
+options	KDB_UNATTENDED
+options	DDB
+options	XENHVM
+options	USB_DEBUG
+options	ATH_ENABLE_11N
+options	AH_AR5416_INTERRUPT_MITIGATION
+options	AH_SUPPORT_AR5416
+options	IEEE80211_SUPPORT_MESH
+options	IEEE80211_AMPDU_AGE
+options	IEEE80211_DEBUG
+options	SC_PIXEL_MODE
+options	VESA
+options	PCI_IOV
+options	PCI_HP
+options	ACPI_DMAR
+options	EARLY_AP_STARTUP
+options	SMP
+options	NETDUMP
+options	ZSTDIO
+options	GZIO
+options	EKCD
+options	KDB_TRACE
+options	KDB
+options	RCTL
+options	RACCT_DEFAULT_TO_DISABLED
+options	RACCT
+options	INCLUDE_CONFIG_FILE
+options	DDB_CTF
+options	KDTRACE_HOOKS
+options	KDTRACE_FRAME
+options	MAC
+options	CAPABILITIES
+options	CAPABILITY_MODE
+options	AUDIT
+options	HWPMC_HOOKS
+options	KBD_INSTALL_CDEV
+options	PRINTF_BUFR_SIZE=128
+options	_KPOSIX_PRIORITY_SCHEDULING
+options	SYSVSEM
+options	SYSVMSG
+options	SYSVSHM
+options	STACK
+options	KTRACE
+options	SCSI_DELAY=5000
+options	COMPAT_FREEBSD11
+options	COMPAT_FREEBSD10
+options	COMPAT_FREEBSD9
+options	COMPAT_FREEBSD7
+options	COMPAT_FREEBSD6
+options	COMPAT_FREEBSD5
+options	COMPAT_FREEBSD4
+options	COMPAT_FREEBSD32
+options	EFIRT
+options	GEOM_LABEL
+options	GEOM_RAID
+options	PSEUDOFS
+options	PROCFS
+options	CD9660
+options	MSDOSFS
+options	NFS_ROOT
+options	NFSLOCKD
+options	NFSD
+options	NFSCL
+options	MD_ROOT
+options	QUOTA
+options	UFS_GJOURNAL
+options	UFS_DIRHASH
+options	UFS_ACL
+options	SOFTUPDATES
+options	FFS
+options	SCTP
+options	TCP_RFC7413
+options	TCP_HHOOK
+options	TCP_BLACKBOX
+options	TCP_OFFLOAD
+options	IPSEC_SUPPORT
+options	IPSEC
+options	INET6
+options	INET
+options	VIMAGE
+options	PREEMPTION
+options	NUMA
+options	SCHED_ULE
+options	NEW_PCIB
+options	GEOM_PART_GPT
+options	GEOM_PART_MBR
+options	GEOM_PART_EBR_COMPAT
+options	GEOM_PART_EBR
+options	GEOM_PART_BSD
+device	isa
+device	mem
+device	io
+device	uart_ns8250
+device	cpufreq
+device	acpi
+device	pci
+device	fdc
+device	ahci
+device	ata
+device	mvs
+device	siis
+device	ahc
+device	ahd
+device	esp
+device	hptiop
+device	isp
+device	mpt
+device	mps
+device	mpr
+device	sym
+device	trm
+device	isci
+device	ocs_fc
+device	scbus
+device	ch
+device	da
+device	sa
+device	cd
+device	pass
+device	ses
+device	amr
+device	arcmsr
+device	ciss
+device	dpt
+device	hptmv
+device	hptnr
+device	hptrr
+device	hpt27xx
+device	iir
+device	ips
+device	mly
+device	twa
+device	smartpqi
+device	tws
+device	aac
+device	aacp
+device	aacraid
+device	ida
+device	mfi
+device	mlx
+device	mrsas
+device	pmspcv
+device	twe
+device	nvme
+device	nvd
+device	atkbdc
+device	atkbd
+device	psm
+device	kbdmux
+device	vga
+device	splash
+device	sc
+device	vt
+device	vt_vga
+device	vt_efifb
+device	agp
+device	cbb
+device	pccard
+device	cardbus
+device	uart
+device	ppc
+device	ppbus
+device	lpt
+device	ppi
+device	puc
+device	bxe
+device	de
+device	em
+device	ix
+device	ixv
+device	ixl
+device	iavf
+device	le
+device	ti
+device	txp
+device	vx
+device	miibus
+device	ae
+device	age
+device	alc
+device	ale
+device	bce
+device	bfe
+device	bge
+device	cas
+device	dc
+device	et
+device	fxp
+device	gem
+device	hme
+device	jme
+device	lge
+device	msk
+device	nfe
+device	nge
+device	pcn
+device	re
+device	rl
+device	sf
+device	sge
+device	sis
+device	sk
+device	ste
+device	stge
+device	tl
+device	tx
+device	vge
+device	vr
+device	wb
+device	xl
+device	wlan
+device	wlan_wep
+device	wlan_ccmp
+device	wlan_tkip
+device	wlan_amrr
+device	an
+device	ath
+device	ath_pci
+device	ath_hal
+device	ath_rate_sample
+device	ipw
+device	iwi
+device	iwn
+device	malo
+device	mwl
+device	ral
+device	wi
+device	wpi
+device	crypto
+device	loop
+device	random
+device	padlock_rng
+device	rdrand_rng
+device	ether
+device	vlan
+device	tun
+device	md
+device	gif
+device	firmware
+device	bpf
+device	uhci
+device	ohci
+device	ehci
+device	xhci
+device	usb
+device	ukbd
+device	umass
+device	sound
+device	snd_cmi
+device	snd_csa
+device	snd_emu10kx
+device	snd_es137x
+device	snd_hda
+device	snd_ich
+device	snd_via8233
+device	mmc
+device	mmcsd
+device	sdhci
+device	virtio
+device	virtio_pci
+device	vtnet
+device	virtio_blk
+device	virtio_scsi
+device	virtio_balloon
+device	hyperv
+device	xenpci
+device	vmx
+device	netmap
+
+------------------------------------------------------------------------
+ddb capture buffer
+
+
