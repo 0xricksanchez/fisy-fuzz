@@ -92,7 +92,7 @@ The remaining config parameters should be self explanatory.
 The video below shows a quick demo where two fuzzing instances both targeting FreeBSD with a radamsa mutated UFS2 and a random bytes flipped EXT file system.
 The mutated UFS file system directly leads to a crash showcasing how quickly you can crash a kernel.
 
-[![asciicast](https://asciinema.org/a/ABgNGFLU3TrUe4n7gOcduTrGk.svg)](https://asciinema.org/a/ABgNGFLU3TrUe4n7gOcduTrGk)
+[![asciicast](https://asciinema.org/a/uF0riiMd3VC1lPaxox1EOdGjE.svg)](https://asciinema.org/a/uF0riiMd3VC1lPaxox1EOdGjE)
 
 
 ![fuzz_example](assets/stdout.png)
