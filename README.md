@@ -4,6 +4,7 @@
 This is the full file system fuzzing framework that I presented at the Hack in the Box 2020 Lockdown Edition conference in April.
 
  * [Conference Talk](https://youtu.be/VNzKVOsn5qQ?t=17032)
+   * [Conference Talk Single Video](https://www.youtube.com/watch?v=a3H3FKrxYQA)
  * [Conference Material](https://github.com/0xricksanchez/HITB2020_FSFUZZER)
 
 
@@ -99,7 +100,8 @@ The mutated UFS file system directly leads to a crash showcasing how quickly you
 
 ## Feature set
 
-- [X] Full Support for FFS, UFS, EXT, and ZFS file systems
+- [X] Full support for FFS, UFS, EXT, and ZFS file systems
+  - [X] Partial support for APFS
 - [X] Full support for FreeBSD, NetBSD, and OpenBSD
     - [X] Experimental support for Ubuntu (and probably other Debian based derivatives)
 - [X] Mutations via 
