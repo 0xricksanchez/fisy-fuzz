@@ -37,7 +37,7 @@ class MetaMutation:
         good_locs = []
         for i in self.s_locs:
             for j in range(fs_p.sb_expected_len):
-                good_locs += i + j
+                good_locs.append(i + j)
 
         ctr = 0
         while ctr < self.nbytes:
